@@ -6,6 +6,8 @@ let stop = false;
 let empty = true;
 let balls = [];
 let gravity = 10;
+let dynamic_collision_pairs = [];
+const collision_dampening = 0.7;
 
 let test = false;
 
@@ -23,13 +25,16 @@ function setup() {
     prepareCanvas();
     resetCanvas();
 
-    balls.push(new Ball(200, 200, 20));
-    balls.push(new Ball(210, 260, 20));
+    balls.push(new Ball(200, 200, 25));
+    balls.push(new Ball(210, 260, 25));
 
     canvas.addEventListener('click', handleCanvasClick);
     window.requestAnimationFrame(loop);
 }
 
+/**
+ * Find global interactive HTML elements.
+ */
 function prepareFields() {
     btnStart = document.getElementById('btnStart');
     btnStop = document.getElementById('btnStop');
@@ -38,6 +43,9 @@ function prepareFields() {
     txtGravity = document.getElementById('txtGravity');
 }
 
+/**
+ * Create and initialise canvas.
+ */
 function prepareCanvas() {
     let topLevel = document.getElementById('canvas');
     canvas = document.createElement('canvas');
@@ -64,62 +72,96 @@ function loop(timestamp) {
         window.requestAnimationFrame(loop);
 }
 
+/**
+ * I was having problems with physics calculations so I borrowed heavily from https://github.com/cdacamar/ball_pit/
+ */
 function update(delta) {
+    dynamic_collision_pairs = [];
+    // For each ball
     for (let i = 0; i < balls.length; ++i) {
         let ball = balls[i];
-        for (let j = i + 1; j < balls.length; ++j) {
-            let b = balls[j];
-            let distance = ball.dist(b);
-            let desiredDistance = ball.r + b.r;
-            if (distance < desiredDistance) {
-                let dx = ball.x - b.x;
-                let dy = ball.y - b.y;
-                if (Math.abs(dx) < 0.01 && Math.abs(dy) < 0.01) {
-                    dx = desiredDistance - 1;
-                    dy = desiredDistance - 1;
-                }
-                let mtd = [dx * (desiredDistance - distance) / distance, dy * (desiredDistance - distance) / distance];
-                
-                ball.x += mtd[0] * ball.r / desiredDistance;
-                ball.y += mtd[1] * ball.r / desiredDistance;
-                b.x -= mtd[0] * b.r / desiredDistance;
-                b.y -= mtd[1] * b.r / desiredDistance;
 
-                let mtdf = Math.sqrt(mtd[0] ** 2 + mtd[1] ** 2);
-                mtd = [mtd[0] / mtdf, mtd[1] / mtdf]
-                let vn = (ball.vx - b.vx) * mtd[0] + (ball.vy - b.vy) * mtd[1];
-                if (vn > 0) continue;
-
-                let i = -vn / desiredDistance;
-                let impulse = [mtd[0] * i, mtd[1] * i];
-                ball.vx += impulse[0] * ball.r;
-                ball.vy += impulse[1] * ball.r;
-                b.vx -= impulse[0] * b.r;
-                b.vy -= impulse[1] * b.r;
-            }
-        }
         ball.vy += gravity;
+
+        if (ball.vx ** 2 < 0.1) {
+            ball.vx = 0;
+        }
+
+        if (ball.vy ** 2 < 0.1) {
+            ball.vy = 0;
+        }
+
+        if(ball.speed() ** 2 < 0.1) {
+            ball.vx = 0;
+            ball.vy = 0;
+        }
+
         ball.move(delta);
+
         if (ball.y > canvas.height - ball.r) {
             ball.y = canvas.height - ball.r;
-            ball.vy = -ball.vy * .5;
+            ball.vy = -ball.vy * .7;
         }
         if (ball.x < 0 + ball.r) {
             ball.x = ball.r;
-            ball.vx = -ball.vx;
+            ball.vx = -ball.vx * collision_dampening;
         }
         if (ball.x > canvas.width - ball.r) {
             ball.x = canvas.width - ball.r;
-            ball.vx = -ball.vx;
+            ball.vx = -ball.vx * collision_dampening;
+        }
+
+        // For each following ball, check collisions and move them outside eachother. Add velocity in opposite directions.
+        for (let j = i + 1; j < balls.length; ++j) {
+            let b = balls[j];
+            let distance = ball.dist(b);
+            // Desired distance is AT LEAST the sum of the radii.
+            let desiredDistance = ball.r + b.r;
+            if (distance < desiredDistance) {
+                dynamic_collision_pairs.push([ball, b]);
+                let dx = b.x - ball.x;
+                let dy = b.y - ball.y;
+                let collision_vector = [dx, dy];
+
+                if (distance < 0.01) {
+                    continue;
+                }
+                //console.log(ball, b);
+                
+                // Move the balls away from eachother an amount proportional to their radius.
+                // Should make the balls touching, not overlapping.
+                let overlap = (distance - ball.r - b.r) / 2;
+                ball.x += overlap * collision_vector[0] / distance;
+                ball.y += overlap * collision_vector[1] / distance;
+                b.x -= overlap * collision_vector[0] / distance;
+                b.y -= overlap * collision_vector[1] / distance;
+
+                //console.log(ball, b);
+            }
         }
     }
 
+    for ([a, b] of dynamic_collision_pairs) {
+        let dx = b.x - a.x;
+        let dy = b.y - a.y;
+        let collision_vector = [dx, dy];
+        let distance = a.dist(b);
+        if (distance < 0.01) {
+            distance = 0.01;
+        }
+        let collision_normalised = [collision_vector[0] / distance, collision_vector[1] / distance];
+        let relative_velocity = [a.vx - b.vx, a.vy - b.vy];
+        let speed = relative_velocity[0] * collision_normalised[0] + relative_velocity[1] * collision_normalised[1];
 
-
-
-    /* balls.forEach(ball => {
+        if (speed < 0) continue;
         
-    }); */
+        let impulse = 2 * speed / (a.r + b.r);
+        a.vx -= collision_normalised[0] * impulse * a.r;
+        a.vy -= collision_normalised[1] * impulse * a.r;
+        b.vx += collision_normalised[0] * impulse * b.r;
+        b.vy += collision_normalised[1] * impulse * b.r;
+        //console.log(dx, dy, collision_vector, distance, collision_normalised, relative_velocity, speed, impulse, a, b); 
+    }
 }
 
 function draw() {
@@ -159,12 +201,12 @@ function handleReset() {
 }
 
 function handleGravitySlide() {
-    gravity = parseInt(sliderGravity.value);
+    gravity = parseFloat(sliderGravity.value);
     txtGravity.value = gravity;
 }
 
 function handleGravityText() {
-    gravity = parseInt(txtGravity.value);
+    gravity = parseFloat(txtGravity.value);
     sliderGravity.value = gravity;
 }
 

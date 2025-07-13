@@ -32,4 +32,12 @@ class Ball {
         this.x += this.vx / delta;
         this.y += this.vy / delta;
     }
+
+    velocity() {
+        return [this.vx, this.vy];
+    }
+
+    speed() {
+        return Math.sqrt(this.vx ** 2 + this.vy ** 2);
+    }
 }
