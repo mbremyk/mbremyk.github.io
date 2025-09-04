@@ -13,11 +13,9 @@ let shift_encrypt = (str, shift = 3, decrypt = false) => {
     let out = "";
     for (let s of str) {
         let c = s;
-        let lower = c == c.toLowerCase();
-        let upper = c == c.toUpperCase();
-        if (lower && !upper) {
+        if (lower_chars.includes(c)) {
             c = lower_chars[(char_to_num[c] + shift + alphabet_length) % alphabet_length];
-        } else if (upper && !lower) {
+        } else if (upper_chars.includes(c)) {
             c = upper_chars[(char_to_num[c] + shift + alphabet_length) % alphabet_length];
         }
         out += c;
