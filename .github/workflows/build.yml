@@ -18,7 +18,7 @@ jobs:
           root_file: ${{ env.FILE }}
           working_directory: ${{ env.DIR }}
       - name: move
-        run: mkdir -p github_artifacts && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/
+        run: mkdir -p github_artifacts/CV && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/CV
       - name: Upload pdf as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -54,4 +54,4 @@ jobs:
         uses: planetoftheweb/copy-to-branches@v1.3
         env:
           key: trunk
-          files: ./CV/index.html ./CV/CNAME
+          files: index.html rng.js ./CV/index.html ./CV/CNAME fluidSimulation/* shift_cipher/* train/* waveFunctionCollapse/*
