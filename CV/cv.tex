@@ -94,6 +94,8 @@
 %for social icons
 \usepackage{fontawesome5}
 
+\usepackage{datetime2}
+
 %debug page outer frames
 %\usepackage{showframe}
 
@@ -142,12 +144,12 @@
 % \end{tabularx}
 
 \begin{tabularx}{\linewidth}{@{} C @{}}
-\Huge{Your Name} \\[7.5pt]
-\href{https://github.com/username}{\raisebox{-0.05\height}\faGithub\ username} \ $|$ \ 
-\href{https://linkedin.com/in/username}{\raisebox{-0.05\height}\faLinkedin\ username} \ $|$ \ 
-\href{https://mysite.com}{\raisebox{-0.05\height}\faGlobe \ mysite.com} \ $|$ \ 
-\href{mailto:email@mysite.com}{\raisebox{-0.05\height}\faEnvelope \ email@mysite.com} \ $|$ \ 
-\href{tel:+000000000000}{\raisebox{-0.05\height}\faMobile \ +00.00.000.000} \\
+\Huge{Magnus Brevik} \\[7.5pt]
+\href{https://github.com/mbremyk}{\raisebox{-0.05\height}\faGithub\ mbremyk} \ $|$ \ 
+\href{https://linkedin.com/in/mbremyk}{\raisebox{-0.05\height}\faLinkedin\ mbremyk} \ $|$ \ 
+\href{https://mbremyk.github.io}{\raisebox{-0.05\height}\faGlobe \ Side projects} \ $|$ \ 
+\href{mailto:mbremyk@hotmail.no}{\raisebox{-0.05\height}\faEnvelope \ mbremyk@hotmail.no} \ $|$ \ 
+\href{tel:+4748087676}{\raisebox{-0.05\height}\faMobile \ +47 48 08 76 76} \\
 \end{tabularx}
 
 %----------------------------------------------------------------------------------------
@@ -156,41 +158,91 @@
 
 %Interests/ Keywords/ Summary
 \section{Summary}
-This CV can also be automatically complied and published using GitHub Actions. For details, \href{https://github.com/jitinnair1/autoCV}{click here}.
+I am a senior software engineer at Oracle with a \href{https://www.ntnu.no/studier/bidata}{Bachelor of Engineering in Computer Science} with a focus on systems development from the \href{https://www.ntnu.no/}{Norwegian University of Science and Technology}.
+In my free time I volunteer as a clarinetist in \href{https://snaustrinda.samfundet.no/}{Snaustrinda Spelemannslag} at the \href{https://www.samfundet.no/}{Student Society in Trondheim}.
+
 
 %Experience
 \section{Work Experience}
 
-\begin{jobshort}{Designation}{Jan 2021 - present}
-long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width
+\begin{jobshort}{Oracle - Software Engineer}{Feb 2021 - present}
+    \begin{tabularx}{\linewidth}{l X r@{}}
+        Senior Member of Technical Staff (IC3) & \hfill &  Aug 2024 - present \\[3.75pt]
+        Member of Technical Staff (IC2) & \hfill &  Jun 2021 - Jul 2024 \\
+        Student Intern & \hfill &  Feb - May 2021 \\
+    \end{tabularx} \\\\
+    \begin{tabularx}{\linewidth}{l X r}
+        \multicolumn{2}{X@{}}{Part of the MySQL Optimizer Team at Oracle. We take an SQL query from the raw query string to an optimized query plan ready for execution by the storage engine.
+        I have been expanding the output from EXPLAIN statements and implementing support for new data types.}
+    \end{tabularx}
 \end{jobshort}
 
 
-\begin{joblong}{Designation}{Mar 2019 - Jan 2021}
-\item long long line of blah blah that will wrap when the table fills the column width
-\item again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah. again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah
-\end{joblong}
+\begin{jobshort}{NTNU - Summer Intern and Student Assistant}{Jun - December 2020}
+    \begin{tabularx}{\linewidth}{l X r}
+        \multicolumn{2}{X@{}}{INFT1003 - Web Technology and Teamwork. Preparation and development of
+educational tools, e.g. timesheet template, student group creation software and
+updating a website of relevant resources. Assisting students and marking
+student assignments. }
+    \end{tabularx}
+
+\end{jobshort}
+
+\begin{jobshort}{NTNU - Student Assistant}{Aug - Dec 2019}
+    \begin{tabularx}{\linewidth}{l X r}
+        \multicolumn{2}{X@{}}{Programming 1 IDATT1001 og Introduction to the engineering profession INGT1001. 
+Help first graders with subject relevant tasks, like programming, installation, setup and
+use of software, some hardware problems, as well as approve and criticize weekly tasks.}
+    \end{tabularx}
+    
+\end{jobshort}
+
+\begin{jobshort}{Jonas B. Kongsberg - Server}{Jun - Aug 2018 and 2019}
+    \begin{tabularx}{\linewidth}{l X r}
+        \multicolumn{2}{X@{}}{Tasks included taking orders, serving food, bartending, barista, washing up. 
+Summer job between study years.}
+    \end{tabularx}
+    
+\end{jobshort}
   
-%Projects
-\section{Projects}
-
-\begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{Some Project} & \hfill \href{https://some-link.com}{Link to Demo} \\[3.75pt]
-\multicolumn{2}{@{}X@{}}{long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width}  \\
-\end{tabularx}
-
 %----------------------------------------------------------------------------------------
 %	EDUCATION
 %----------------------------------------------------------------------------------------
 \section{Education}
-\begin{tabularx}{\linewidth}{@{}l X@{}}	
-2030 - present & PhD (Subject) at \textbf{University} \hfill \normalsize (GPA: 4.0/4.0) \\
+\begin{jobshort}{Bachelor of Engineering in Computer Science at \textbf{NTNU}}{2018 - 2021}	
+    \begin{tabularx}{\linewidth}{l X r}
+        \multicolumn{2}{X@{}}{Specialization in systems development using Java, C, C++, JavaScript, HTML, CSS, React,
+MySQL, Scrum, Belbin, software and network security. Projects include a LEGO-project,
+a game development project with databases and a web development project with
+scrum. My bachelor’s paper was written for Oracle Norway AS, implementing the
+BOOLEAN data type in MySQL. Campus Kalvskinnet and Gløshaugen in Trondheim, Norway.}
+    \end{tabularx}
+\end{jobshort} 
 
-2023 - 2027 & Bachelor's Degree at \textbf{College} \hfill (GPA: 4.0/4.0) \\ 
+\begin{jobshort}{Classical Clarinet at \textbf{Toneheim Folk High School}}{Aug 2017 - Jun 2018}
+    \begin{tabularx}{\linewidth}{l X r}
+        \multicolumn{2}{X@{}}{Weekly private lessons.
+Participation in various ensembles, including concert band, orchestra, various bands,
+woodwind ensemble, clarinet quartet.
+Weekly subjects include composition and arrangements, musical theory, jazz
+improvisation.}
+    \end{tabularx}
+\end{jobshort}
 
-2022 & Class 12th Some Board \hfill  (Grades) \\
+%Projects
+\section{Projects}
 
-2021 & Class 10th Some Board \hfill  (Grades) \\
+\begin{tabularx}{\linewidth}{@{}l r@{} }
+\textbf{Clarinetist} & \hfill 2010 - present \\[3.75pt]    
+\multicolumn{2}{X@{}}{Clarinetist in various ensembles, including Studentorchesteret Dei Taktlause,
+Snaustrinda Spelemannslag, Kalvskinnetrevyen, Kongsgårdmoen school marching band,
+Regionkorps Øst, Kongsberg Byorkester, as well as other shorter projects.
+Weekly lessons and talent development program at Kongsberg Culture School until 2017.
+Various courses and seminars.}  \\\\
+
+\textbf{Scout}, Konsgberg KFUK-KFUM-speidere & \hfill 2009 - 2019 \\[3.75pt]
+\multicolumn{2}{X}{Scouting group in Kongsberg, Norway with projects, trips, camps, courses, and weekly
+meetings. Patrol leader and leading functions.}  \\
 \end{tabularx}
 
 %----------------------------------------------------------------------------------------
@@ -207,11 +259,20 @@ long long line of blah blah that will wrap when the table fills the column width
 %----------------------------------------------------------------------------------------
 \section{Skills}
 \begin{tabularx}{\linewidth}{@{}l X@{}}
-Some Skills &  \normalsize{This, That, Some of this and that etc.}\\
-Some More Skills  &  \normalsize{Also some more of this, Some more that, And some of this and that etc.}\\  
+\textbf{Languages} & \hfill \\
+    Norwegian & First language \\
+    English & Fluent \\
+    Spanish & Basic \\\\
+
+\textbf{IT} & Experience includes, but is not limited to, Java, Python, C++, C\#, JavaScript, Arduino, MySQL, IntelliJ, Visual Studio Code, bash, git \\\\
+\textbf{Licenses} & Norwegian driver's license class AM, B \\
 \end{tabularx}
+
+\section{References}
+References available on request.
 
 \vfill
 \center{\footnotesize Last updated: \today}
+
 
 \end{document}
