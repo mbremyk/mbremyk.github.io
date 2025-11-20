@@ -6,7 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Edit here with the names of your latex file and directory (can use ".")
       DIR: ./CV
       FILE: cv
     steps:
@@ -54,4 +53,4 @@ jobs:
         uses: planetoftheweb/copy-to-branches@v1.3
         env:
           key: trunk
-          files: index.html rng.js ./CV/index.html ./CV/CNAME fluidSimulation/* shift_cipher/* train/* waveFunctionCollapse/*
+          files: index.html rng.js ./CV/index.html ./CV/CNAME fluidSimulation/* shift_cipher/* train/* waveFunctionCollapse/* buton_helper/*
