@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Butonhjelper</title>
+    <link rel='stylesheet' href='index.css'>
+    <script src='index.js' type='text/javascript'></script>
+</head>
+
+<body>
+    <div>
+        <canvas id="canvas" width="800" height="800"></canvas>
+        <div id="divInputs">
+            <input type="file" id="file-selector" />
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Ytterste kant:</td>
+                        <td><input type='number' min='0' value='66' id="outer-edge" class="numEdge"/></td>
+                        <td>mm</td>
+                    </tr>
+                    <tr>
+                        <td>Ytterste synlige kant bak:</td>
+                        <td><input type='number' min='0' value='61' id="outer-visible-edge" class="numEdge"/></td>
+                        <td>mm</td>
+                    </tr>
+                    <tr>
+                        <td>Kant bak:</td>
+                        <td><input type='number' min='0' value='56' id="edge-back" class="numEdge"/></td>
+                        <td>mm</td>
+                    </tr>
+                    <tr>
+                        <td>Kant foran:</td>
+                        <td><input type='number' min='0' value='54' id="edge-front" class="numEdge"/></td>
+                        <td>mm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

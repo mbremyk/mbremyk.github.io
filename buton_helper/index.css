@@ -1,0 +1,23 @@
+#canvas {
+    background-color: black;
+    display: inline;
+}
+
+#divInputs {
+    display: inline;
+}
+
+div {
+    display: flex;
+    div {
+        display: contents;
+        input {
+            display: block;
+        };
+    };
+}
+
+.numEdge {
+    text-align: right;
+    width:3em;
+}
