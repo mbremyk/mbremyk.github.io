@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="index.css">
+  <script src="index.js" type="module"></script>
+</head>
+
+<body>
+  <div id="color-picker">
+    <div id="color-pick-canvas-container">
+      <canvas id="color-pick-canvas"></canvas>
+    </div>
+    <div id="color-bar-canvas-container">
+      <canvas id="color-bar-canvas" draggable="false"></canvas>
+    </div>
+    <div id="sliders">
+      <div>
+        Saturation
+        <input id="inputSaturation" type="range" min=0 max=100 label="Saturation" />
+      </div>
+      <div>
+        Value
+        <input id="inputValue" type="range" min=0 max=100 label="value" />
+      </div>
+      <div id="chosenColor"></div>
+    </div>
+  </div>
+</body>
+
+</html>
