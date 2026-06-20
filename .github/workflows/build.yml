@@ -19,7 +19,7 @@ jobs:
       - name: move
         run: mkdir -p github_artifacts/CV && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/CV
       - name: Upload pdf as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           name: ${{ env.FILE }}.pdf
           path: ./github_artifacts
@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@main
         with:
           path: github_artifacts
       - name: move
