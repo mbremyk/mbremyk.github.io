@@ -53,4 +53,4 @@ jobs:
         uses: planetoftheweb/copy-to-branches@v1.3
         env:
           key: trunk
-          files: index.html rng.js ./CV/index.html ./CV/CNAME fluidSimulation/* shift_cipher/* train/* waveFunctionCollapse/* buton_helper/*
+          files: index.html rng.js ./CV/index.html ./CV/CNAME fluidSimulation/* shift_cipher/* train/* waveFunctionCollapse/* buton_helper/* colourPicker/*
