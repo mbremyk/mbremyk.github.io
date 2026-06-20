@@ -4,17 +4,21 @@ let cnvColorBar;
 let ctxColorBar;
 let inputSaturation;
 let inputValue;
+let numSaturation;
+let numValue;
+let imgReticule;
 let divChosenColor;
 
 let baseColor = { r: 255, g: 0, b: 0 };
-let hue = 100;
-let saturation = 50;
-let value = 50;
+let hue = 0;
+let saturation = 100;
+let value = 100;
 let colorBarGradient;
 let colorBarDrag = false;
 let colorPickDrag = false;
 const black = { r: 0, g: 0, b: 0 };
 const white = { r: 255, g: 255, b: 255 };
+const reticuleSize = 30;
 
 let main = () => {
     setup();
@@ -23,9 +27,13 @@ let main = () => {
 let setup = () => {
     inputSaturation = document.getElementById("inputSaturation");
     inputValue = document.getElementById("inputValue");
+    numSaturation = document.getElementById("numSaturation");
+    numValue = document.getElementById("numValue");
 
     inputSaturation.oninput = handleSaturationInput;
     inputValue.oninput = handleValueInput;
+    numSaturation.oninput = handleSaturationInput;
+    numValue.oninput = handleValueInput;
 
     divChosenColor = document.getElementById("chosenColor");
 
@@ -42,6 +50,14 @@ let setupColorPick = () => {
     cnvColorPick.addEventListener("mousedown", handleColorPickMouseDown);
     document.addEventListener("mousemove", handleColorPickMouseMove);
     document.addEventListener("mouseup", handleColorPickMouseUp);
+
+    imgReticule = new Image();
+    imgReticule.addEventListener("load", () => {
+        let xPos = saturation * cnvColorPick.width / 100 - reticuleSize / 2;
+        let yPos = cnvColorPick.height - value * cnvColorPick.height / 100 - reticuleSize / 2;
+        ctxColorPick.drawImage(imgReticule, xPos, yPos, reticuleSize, reticuleSize);
+    });
+    imgReticule.src = "Reticule.png";
 
     drawColorPick();
 }
@@ -88,6 +104,10 @@ let drawColorPick = () => {
         grdBlackToTrans.addColorStop(1, `black`);
         ctxColorPick.fillStyle = grdBlackToTrans;
         ctxColorPick.fillRect(0, 0, cnvColorPick.width, cnvColorPick.height);
+
+        let xPos = saturation * cnvColorPick.width / 100 - reticuleSize / 2;
+        let yPos = cnvColorPick.height - value * cnvColorPick.height / 100 - reticuleSize / 2;
+        ctxColorPick.drawImage(imgReticule, xPos, yPos, reticuleSize, reticuleSize);
     }
 }
 
@@ -115,13 +135,13 @@ let handleColorPickMouseMove = (e) => {
 
         let visX = e.clientX - bound.left;
         let visY = e.clientY - bound.top;
-        console.log(visX, visY);
-        console.log(visX / cnvColorPick.width, visY / cnvColorPick.height);
 
+        saturation = Math.max(0, Math.min(100, ((e.clientX - bound.left) / cnvColorPick.width) * 100)).toFixed(2);
+        value = (100 - Math.max(0, Math.min(100, ((e.clientY - bound.top) / cnvColorPick.height) * 100))).toFixed(2);
 
+        inputSaturation.value = numSaturation.value = saturation;
+        inputValue.value = numValue.value = value;
 
-        saturation = Math.max(0, Math.min(100, ((e.clientX - bound.left) / cnvColorPick.width) * 100));
-        value = 100 - Math.max(0, Math.min(100, ((e.clientY - bound.top) / cnvColorPick.height) * 100));
         drawColorPick();
         drawChosenColor();
     }
@@ -152,13 +172,17 @@ let handleColorBarMouseUp = (e) => {
 }
 
 let handleSaturationInput = (e) => {
-    saturation = e.target.value;
+    saturation = parseFloat(parseFloat(e.target.value).toFixed(2));
+    console.log(saturation);
+    
+    inputSaturation.value = numSaturation.value = saturation;
     drawColorPick();
     drawChosenColor();
 }
 
 let handleValueInput = (e) => {
-    value = e.target.value;
+    value = parseFloat(parseFloat(e.target.value).toFixed(2));
+    inputValue.value = numValue.value = value;
     drawColorPick();
     drawChosenColor();
 }
