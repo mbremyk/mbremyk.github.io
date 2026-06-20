@@ -10,7 +10,7 @@ jobs:
       FILE: cv
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@latest
       - name: cv
         uses: dante-ev/latex-action@latest
         with:
@@ -19,7 +19,7 @@ jobs:
       - name: move
         run: mkdir -p github_artifacts/CV && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/CV
       - name: Upload pdf as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@latest
         with:
           name: ${{ env.FILE }}.pdf
           path: ./github_artifacts
@@ -28,14 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+        uses: actions/checkout@latest
+      - uses: actions/download-artifact@latest
         with:
           path: github_artifacts
       - name: move
         run: mkdir -p github_deploy && mv github_artifacts/*/* github_deploy
       - name: deploy on orphan branch
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@latest
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./github_deploy
@@ -46,11 +46,11 @@ jobs:
     needs: [deploy]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@latest
         with:
           fetch-depth: 0
       - name: Copy To Branches Action
-        uses: planetoftheweb/copy-to-branches@v1.3
+        uses: planetoftheweb/copy-to-branches@latest
         env:
           key: trunk
           files: index.html rng.js ./CV/index.html ./CV/CNAME fluidSimulation/* shift_cipher/* train/* waveFunctionCollapse/* buton_helper/*
