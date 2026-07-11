@@ -1,0 +1,35 @@
+body {
+    font-family: monospace;
+}
+
+textarea {
+    resize: vertical;
+    height: 12em;
+}
+
+div.topLine {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    min-width: 10em;
+
+    div {
+        height: 1em;
+    }
+}
+
+input {
+    display: block;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 0.5em;
+    font-family: monospace;
+}
+
+input.autoOff {
+    background: #eb3030;
+}
+
+input.autoOn {
+    background: #40eb30;
+}

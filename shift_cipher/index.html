@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Shift cipher</title>
+    <link rel='stylesheet' href='index.css'>
+    <script src='util.js' type='text/javascript'></script>
+    <script src='index.js' type='text/javascript'></script>
+</head>
+
+<body>
+    <div>
+        <div class="topLine">
+            <textarea id="txtRaw" cols=60 lines=8 placeholder="Input raw string here..." wrap="soft"></textarea>
+        </div>
+        <div class="topLine">
+            <input type="number" value=3 id="txtShift" min=-26 max=26>
+            <input type="button" value="  Encrypt >" id="btnEncrypt"/>
+            <input type="button" value="< Decrypt  " id="btnDecrypt"/>
+            <input type="button" value=" Auto: OFF " class="autoOff" id="btnAuto"/>
+            <input type="button" value="Encrypting..." id="btnAutoDir" disabled/>
+        </div>
+        <div class="topLine">
+            <textarea id="txtEncrypted" cols=60 lines=8 placeholder="Input encrypted string here..." wrap="soft"></textarea>
+        </div>
+    </div>
+</body>
